@@ -19,6 +19,7 @@
 
 \usepackage{comment}
 \usepackage{tikz}
+\usepackage{breqn}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs} 
@@ -107,7 +108,89 @@ University of Arkansas \\
     \end{pmatrix}$
 
 \end{frame}
+\begin{frame}{What to solve}
+    For an external force in the $y$ direction the equilibrium forces are:
+    \begin{dmath}
+        (\sigma_{xx}+d\sigma_{xx})dydz - \sigma_{xx}dydz + (\sigma_{yx}+d\sigma_{yx}) dxdz - \sigma_{yx}dxdz + (\sigma_{zx}+d\sigma_{zx})dxdy - \sigma_{zx}dxdy + f_x dx dy dz = \rho \ddot{u} dx dy dz
+    \end{dmath}
+    But since:
+    \begin{align}
+        d\sigma_{xx} = \frac{\partial \sigma_{xx}}{\partial x}dx , d\sigma_{yx} = \frac{\partial \sigma_{yx}}{\partial y}dy, d\sigma_{zx} = \frac{\partial \sigma_{zx}}{\partial z} dz
+    \end{align}
+    Substituting (2) into (1) gives us:
+    \begin{align}
+        \frac{\partial \sigma_{xx}}{\partial x} + \frac{\partial \sigma_{yx}}{\partial y} + \frac{\partial \sigma_{zx}}{\partial z} + f_x = \rho \ddot{u}
+    \end{align}
 
+\end{frame}
+\begin{frame}{What to solve}
+    Using analogous equations for different directions,$y$ and $z$, we get:
+    \begin{align*}
+        \frac{\partial \sigma_{xy}}{\partial x} + \frac{\partial \sigma_{yy}}{\partial y} + \frac{\partial \sigma_{zy}}{\partial z} + f_y &= \rho \ddot{v} \\
+        \frac{\partial \sigma_{xz}}{\partial x} + \frac{\partial \sigma_{yz}}{\partial y} + \frac{\partial \sigma_{zz}}{\partial z} + f_z &= \rho \ddot{w}
+    \end{align*}
+    Yielding the linear system:
+    \begin{align}
+        L^T\sigma + f_b = \rho \ddot{U}
+    \end{align}
+    And since Hooke's Law states $\sigma = c \epsilon$ we can further simplify to:
+    \begin{align*}
+        L^TcLU + f_b = \rho \ddot{U}
+    \end{align*}
+\end{frame}
+\begin{frame}{What to Solve}
+    For beams, the ruling paradibm is \textit{Euler-Bernoulli} beam theory. This assumes that transverse sections of the beam remain normal to the centroidal axis.
+    \begin{center}
+    \includegraphics[scale = 0.3]{EBbeam.png}
+    \end{center}
+    Leads to assumption: $\gamma_{xy} = 0, u = -y\theta, \theta = \frac{\partial v} {\partial x}$
+\end{frame}
+\begin{frame}{What to Solve}
+    Leading us to conclude
+    \begin{align}
+        \epsilon_{xx} = \frac{\partial u}{\partial x} = \frac{\partial(-y\theta)}{\partial x} = -y\frac{\partial \theta}{\partial x} = -y \frac{\partial^2 v}{\partial x^2} = -yLv
+    \end{align}
+    With differential operator: $L = \frac{\partial^2}{\partial x^2}$
+
+    Recall that Hooke's Law then says $\sigma_{xx} = E \epsilon_{xx}$
+    
+    Substituting (5) into Hooke's Law then gives:
+    \begin{align}
+        \sigma_{xx} = -yELv
+    \end{align}
+    \newline
+    Following further moment derivations from Liu and Quek, the dynamic equilibrium equations for beam is then:
+    \begin{align}
+        EI \frac{\partial^4 v}{\partial x^4} = F_y
+    \end{align}
+\end{frame}
+\begin{frame}{How to Solve It}
+    General structure of a deal.ii step. 
+    \begin{enumerate}
+        \item include deal.ii headers
+        \item Create \texttt{class StepN} with public methods \texttt{StepN(), run()} and private methods \texttt{make_grid(),setup_system(),assemble_system(),solve(),\\output_results()}, and attributes often \texttt{Triangulation<dim>, FE_Q <dim>, DoFHandler<dim>}
+        \item Define the methods outside, sometimes all encaspulated in a template for dimension independent programming. 
+    \end{enumerate}
+\end{frame}
+\begin{frame}{How to Solve It}
+    \includegraphics[scale = 0.5]{vscode.png}
+\end{frame}
+\begin{frame}{How to Solve It}
+    Results of solving Laplace Equation on Different Domains:
+    \begin{figure}
+        \includegraphics[scale = 0.2]{PlateWithHole.png}
+        \caption{Plate with one hole}
+    \end{figure} \quad
+\end{frame}
+\begin{frame}{How to Solve It}
+    \begin{figure}
+        \includegraphics[scale = 0.2]{Cheese.png}
+        \caption{Cheese domain}
+    \end{figure}
+\end{frame}
+\begin{frame}
+    
+\end{frame}
 \end{document}
 
 
