@@ -63,6 +63,7 @@ University of Arkansas \\
 \frametitle{Table of Contents} 
     \tableofcontents 
 \end{frame}
+\begin{section}{What to Solve}
 \begin{frame}{What to Solve}
     We seek to solve dynamic equilibrium equations. The formulation from Liu and Quek assumes among other things:
     \begin{enumerate}
@@ -138,32 +139,9 @@ University of Arkansas \\
         L^TcLU + f_b = \rho \ddot{U}
     \end{align*}
 \end{frame}
-\begin{frame}{What to Solve}
-    For beams, the ruling paradibm is \textit{Euler-Bernoulli} beam theory. This assumes that transverse sections of the beam remain normal to the centroidal axis.
-    \begin{center}
-    \includegraphics[scale = 0.3]{EBbeam.png}
-    \end{center}
-    Leads to assumption: $\gamma_{xy} = 0, u = -y\theta, \theta = \frac{\partial v} {\partial x}$
-\end{frame}
-\begin{frame}{What to Solve}
-    Leading us to conclude
-    \begin{align}
-        \epsilon_{xx} = \frac{\partial u}{\partial x} = \frac{\partial(-y\theta)}{\partial x} = -y\frac{\partial \theta}{\partial x} = -y \frac{\partial^2 v}{\partial x^2} = -yLv
-    \end{align}
-    With differential operator: $L = \frac{\partial^2}{\partial x^2}$
 
-    Recall that Hooke's Law then says $\sigma_{xx} = E \epsilon_{xx}$
-    
-    Substituting (5) into Hooke's Law then gives:
-    \begin{align}
-        \sigma_{xx} = -yELv
-    \end{align}
-    \newline
-    Following further moment derivations from Liu and Quek, the dynamic equilibrium equations for beam is then:
-    \begin{align}
-        EI \frac{\partial^4 v}{\partial x^4} = F_y
-    \end{align}
-\end{frame}
+\end{section}
+\begin{section}{How to Solve It}
 \begin{frame}{How to Solve It}
     General structure of a deal.ii step. 
     \begin{enumerate}
@@ -194,6 +172,8 @@ University of Arkansas \\
     \includegraphics[scale = 0.16]{MFDomain.png}
     \includegraphics[scale = 0.16]{MFDomainLE.png}
 \end{frame}
+\end{section}
+\begin{section}{Future Timeline}
 \begin{frame}{Future Timeline}
     Step-8 deals explicitly with solving linear systems of differential equations. Our next step is to master Step-8. 
     \newline
@@ -203,6 +183,7 @@ University of Arkansas \\
     \newline
     Mesh data for airplanes from UIUC Airfoil data is not in the format that deal.ii can understand. In particular converting from the Lednicer format in a text file proves challenging and prohibitively time consuming. 
 \end{frame}
+\end{section}
 \end{document}
 
 
