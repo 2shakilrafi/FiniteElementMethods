@@ -43,9 +43,9 @@
 \definecolor {processblue}{cmyk}{0.96,0,0,0}
 
 
-\title[Short title]{Progress Report} 
+\title[Short title]{Progress Report for simulating the collision of UAVs with commercial airplanes} 
 
-\author{Shakil Rafi} 
+\author{Xuan Gu \& Shakil Rafi} 
 \institute[University of Arkansas] 
 {
 University of Arkansas \\ 
@@ -73,17 +73,23 @@ University of Arkansas \\
     We distinguish between four kinds of objects: beams, trusses, plates and shells.
 \end{frame}
 \begin{frame}{What to Solve}
-    \includegraphics[scale = 0.35]{TypesOfObjects.png}
+    \begin{figure}
+    \includegraphics[scale = 0.3]{TypesOfObjects.png}
+    \caption{The four kinds of objects. Liu \& Quek, 2013}
+    \end{figure}
 \end{frame}
 \begin{frame}{What to Solve}
     Taking a queue from Liu and Quek, we start off by defining DEE for an idealized infinitesimal, linearly elastic, isotropic material.
-    \quad\includegraphics[scale = 0.4]{Cube.png}
-
+    \begin{figure}
+    \quad\includegraphics[scale = 0.3]{Cube.png}
+    \caption{Forces on an idealized cube. Liu \& Quek, 2013}
+    \end{figure}
     Observe that because of equilibrium $\sigma_{xy} = \sigma_{yx}; \sigma_{xz} = \sigma_{zx}; \sigma_{yz}= \sigma_{yz}$ 
     Which give sus the stress tensors: $\sigma^T = \{\sigma_{xx},\sigma_{yy},\sigma_{zz},\sigma_{yz},\sigma{xz},\sigma{xy}\}$
 \end{frame}
 \begin{frame}{What to Solve}
-    We also get six strain components $\epsilon^T = \{\epsilon_{xx},\epsilon_{yy},\epsilon{zz},\gamma_{yz},\gamma_{xz},\gamma_{xy}$
+    We also get six strain components $\epsilon^T = \{\epsilon_{xx},\epsilon_{yy},\epsilon{zz},\gamma_{yz},\gamma_{xz},\gamma_{xy}\}$
+    
     Where:
     \begin{align*}
         \epsilon_{xx} &= \frac{\partial u }{\partial x}; \quad \epsilon_{yy} = \frac{\partial v}{\partial y}; \quad \epsilon_{zz} = \frac{\partial w}{\partial z};\\
@@ -139,6 +145,32 @@ University of Arkansas \\
         L^TcLU + f_b = \rho \ddot{U}
     \end{align*}
 \end{frame}
+% \begin{frame}{What to Solve}
+%     For beams, the ruling paradibm is \textit{Euler-Bernoulli} beam theory. This assumes that transverse sections of the beam remain normal to the centroidal axis.
+%     \begin{center}
+%     \includegraphics[scale = 0.3]{EBbeam.png}
+%     \end{center}
+%     Leads to assumption: $\gamma_{xy} = 0, u = -y\theta, \theta = \frac{\partial v} {\partial x}$
+% \end{frame}
+% \begin{frame}{What to Solve}
+%     Leading us to conclude
+%     \begin{align}
+%         \epsilon_{xx} = \frac{\partial u}{\partial x} = \frac{\partial(-y\theta)}{\partial x} = -y\frac{\partial \theta}{\partial x} = -y \frac{\partial^2 v}{\partial x^2} = -yLv
+%     \end{align}
+%     With differential operator: $L = \frac{\partial^2}{\partial x^2}$
+
+%     Recall that Hooke's Law then says $\sigma_{xx} = E \epsilon_{xx}$
+    
+%     Substituting (5) into Hooke's Law then gives:
+%     \begin{align}
+%         \sigma_{xx} = -yELv
+%     \end{align}
+%     \newline
+%     Following further moment derivations from Liu and Quek, the dynamic equilibrium equations for beam is then:
+%     \begin{align}
+%         EI \frac{\partial^4 v}{\partial x^4} = F_y
+%     \end{align}
+% \end{frame}
 
 \end{section}
 \begin{section}{How to Solve It}
@@ -151,7 +183,16 @@ University of Arkansas \\
     \end{enumerate}
 \end{frame}
 \begin{frame}{How to Solve It}
-    \includegraphics[scale = 0.3]{vscode.png}
+    \begin{figure}
+    \includegraphics[scale = 0.25]{vscode.png}
+    \caption{VSCode of Step-3 with comments stripped, code folding, minor refactoring}
+    \end{figure}
+\end{frame}
+\begin{frame}{How to solve it}
+    \begin{figure}
+        \includegraphics[scale=0.06]{grid-1.jpg}
+        \caption{Grid refinement on a 2-simplex}
+    \end{figure}
 \end{frame}
 \begin{frame}{How to Solve It}
     Results of solving Laplace Equation on Different Domains:
@@ -172,17 +213,52 @@ University of Arkansas \\
     \includegraphics[scale = 0.16]{MFDomain.png}
     \includegraphics[scale = 0.16]{MFDomainLE.png}
 \end{frame}
+\begin{frame}{How to solve it}
+    \begin{figure}
+    \includegraphics[scale=0.2]{Laplace3S.png}
+    \caption{The Laplace problem solved on a tetrahedral domain}
+    \end{figure}
+\end{frame}
+\begin{frame}{How to solve it}
+    \begin{figure}
+    \includegraphics[scale=0.2]{CWH.png}
+    \caption{Same but on a channel with holes}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Step-8}
+    Step-8 presents the elastic equations, an extension of Laplace equations with vector-valued solutions:
+    \begin{align}
+        -\text{div}(C \nabla u) = f
+    \end{align}
+\end{frame}
+\begin{frame}{Step-8}
+    The $x$-displacement on the teardrop domain is:
+    \begin{figure}
+        \includegraphics[scale=0.18]{xdisp.png}
+        \caption{x-displacement on the solution to the elastic equations on the teardrop domain}
+    \end{figure}
+\end{frame}
 \end{section}
 \begin{section}{Future Timeline}
 \begin{frame}{Future Timeline}
-    Step-8 deals explicitly with solving linear systems of differential equations. Our next step is to master Step-8. 
-    \newline
-    \newline
-    Step-44 deals exclusively with a certain variation of the dynamic structure equations for a plate. 
+    Our next step is to master step-44. Step-44 deals exclusively with a certain variation of the dynamic structure equations for a plate. 
     \newline
     \newline
     Mesh data for airplanes from UIUC Airfoil data is not in the format that deal.ii can understand. In particular converting from the Lednicer format in a text file proves challenging and prohibitively time consuming. 
 \end{frame}
+\begin{frame}{Future Timeline}
+    We hope to master Step-44 by the end of spring break by which time we will have usable mesh data. 
+    Our aim is to solve the dynamic equilibrium equations on the domains provided by the mesh data.
+\end{frame}
+\end{section}
+\begin{section}{Bibliography}
+    \begin{frame}{Bibliography}
+    \begin{enumerate}
+        \item Liu G. R. \& S. S. Quek, \textit{The Finite Element Method: A Practical Course}, 2nd Edition. Butterworth-Heinemann, 2013.
+        \item Bathe, K. J. \textit{Finite Element Analysis of Solids and Fluids}. Online Lectures. MIT OpenCourseware. https://ocw.mit.edu/courses/mechanical-engineering/2-092-finite-element-analysis-of-solids-and-fluids-i-fall-2009/lecture-notes/
+    \end{enumerate}
+    \end{frame}
 \end{section}
 \end{document}
 
