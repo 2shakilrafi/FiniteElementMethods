@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>pderectmodel</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-03-26"><meta name="DC.source" content="pderectmodel.m"><style type="text/css">
+      --><title>RobinMassMatrix2D</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-03-29"><meta name="DC.source" content="RobinMassMatrix2D.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,15 +67,41 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><pre class="codeinput">pderect([2,3,-2,3])
-pderect([-2 -1 -2 3])
-pderect([-1 2 2 3])
-pderect([-1 2 -2 -1])
-</pre><img vspace="5" hspace="5" src="pderectmodel_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> R = RobinMassMatrix2D(p,e,kappa)
+
+np = size(p,2);
+ne = size(e,2);
+R = sparse(np,np);
+<span class="keyword">for</span> E = 1:ne
+    loc2glb = e(1:2,E);
+    x = p(1,loc2glb);
+    y = p(2,loc2glb);
+    len = sqrt((x(1)-x(2))^2+(y(1)-y(2))^2);
+    xc = mean(x); yc = mean(y);
+    k = kappa;  <span class="comment">%since kappa is 1 we simply replace the matrix with the constant kappa</span>
+    RE = k/6*[2 1; 1 2]*len;
+    R(loc2glb,loc2glb) = R(loc2glb,loc2glb)+RE;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in RobinMassMatrix2D (line 3)
+np = size(p,2);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-pderect([2,3,-2,3])
-pderect([-2 -1 -2 3])
-pderect([-1 2 2 3])
-pderect([-1 2 -2 -1])
+function R = RobinMassMatrix2D(p,e,kappa)
+
+np = size(p,2);
+ne = size(e,2);
+R = sparse(np,np);
+for E = 1:ne
+    loc2glb = e(1:2,E);
+    x = p(1,loc2glb);
+    y = p(2,loc2glb);
+    len = sqrt((x(1)-x(2))^2+(y(1)-y(2))^2);
+    xc = mean(x); yc = mean(y);
+    k = kappa;  %since kappa is 1 we simply replace the matrix with the constant kappa
+    RE = k/6*[2 1; 1 2]*len;
+    R(loc2glb,loc2glb) = R(loc2glb,loc2glb)+RE;
+end
 ##### SOURCE END #####
 --></body></html>
