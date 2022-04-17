@@ -10,9 +10,8 @@ backsub_time = zeros(3,1);          %time it takes to backsub various matrices
 
 labels = ["original"; "rcm";"amd"];
 
-for N = [16 32 64 128 256];
-
-    matrix = gallery('wathen',N,N);
+for 
+    matrix = gallery('wathen',N(i),N(i));
     amd_matrix = matrix(symamd(matrix),symamd(matrix));
     rcm_matrix = matrix(symrcm(matrix),symrcm(matrix));
 
@@ -54,7 +53,7 @@ for N = [16 32 64 128 256];
     chol_amd\y;
     backsub_time(3,1) = toc;
 
-    disp("For a Wathen matrix of size " + N + " the timings are:")
+    disp("For a Wathen matrix of size " + N(i) + " the timings are:")
     table(labels,chol_time, forsub_time, backsub_time)
     
 end
