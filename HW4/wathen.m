@@ -7,8 +7,8 @@ B = gallery('wathen',8,8);
 
 spy(B);
 
-p = symrcm(B);
-rcmB = B(p,p);
+p = symrcm(B)
+; rcmB = B(p,p);
 
 p = symamd(B);
 amdB = B(p,p);

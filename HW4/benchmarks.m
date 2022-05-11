@@ -8,7 +8,9 @@ chol_time = zeros(3,1);             %time it takes to chol various matrices
 forsub_time = zeros(3,1);           %time it takes to forsub various matrices
 backsub_time = zeros(3,1);          %time it takes to backsub various matrices
 
-labels = ["original"; "rcm";"amd"];
+labels = ["original"; 
+    "rcm";
+    "amd"];
 
 for N = [16 32 64 128 256];
 
